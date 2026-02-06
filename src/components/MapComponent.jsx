@@ -1,5 +1,5 @@
 import React from "react";
-import "./MapComponent.css";
+import "./Mapcomponent.css";
 
 const MapComponent = () => (
   <div className="map-container">
