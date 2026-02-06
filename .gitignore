@@ -1,0 +1,59 @@
+# Node dependencies
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Build output
+dist/
+dist-ssr/
+*.local
+
+# Vite cache
+.vite/
+
+# Environment variables
+.env
+.env.*.local
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Optional npm cache directory
+.npm/
+
+# Coverage reports
+coverage/
+
+# Docker-related (local overrides, volumes, etc.)
+.dockerignore
+docker-compose.override.yml
+
+# GitHub Actions artifacts (if any are downloaded or generated locally)
+*.bak
+*.tmp
+*.cache
+
+# Prevent local test results (if using Jest or Vitest)
+coverage/
+*.test.log
+
+# Mac/Linux file metadata
+*.swp
+*.swo
