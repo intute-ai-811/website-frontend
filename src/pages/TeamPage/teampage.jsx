@@ -61,7 +61,7 @@ const teamMembers = [
   {
     name: "Rhythm",
     role: "Data Scientist",
-    description: "",
+    description: "Applied AI",
     image: rhythmImage,
     linkedin: "https://www.linkedin.com/in/rhythm-parashar-26910a24b/",
   },

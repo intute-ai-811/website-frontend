@@ -1,26 +1,20 @@
-/* ==========================================
-   Navbar - Enhanced Creative & Professional Design
-   Matching Homepage Aesthetics
-   ========================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
   --primary-yellow: #fff200;
   --secondary-orange: #ff6a00;
   --accent-gradient: linear-gradient(135deg, #fff200, #ffa500);
-  
+
   --bg-black: #000000;
   --text-white: #ffffff;
   --text-light: #e0e0e0;
-  
+
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.08);
-  
+
   --font-display: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
-  
-  /* Navbar Height - Reduced */
+
   --navbar-height: 60px;
 }
 
@@ -36,16 +30,15 @@
   z-index: 1000;
   padding: 0;
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: background, backdrop-filter;
 }
 
-/* Transparent State (Initial) */
 .navbar-transparent {
   background: rgba(0, 0, 0, 0.7) !important;
   backdrop-filter: blur(10px);
   box-shadow: none;
 }
 
-/* Scrolled State (Solid Black) */
 .navbar-colored {
   background: rgba(0, 0, 0, 0.95) !important;
   backdrop-filter: blur(20px);
@@ -53,7 +46,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Scroll Progress Indicator */
+/* Scroll Progress Bar */
 .navbar::after {
   content: '';
   position: absolute;
@@ -103,6 +96,7 @@
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   filter: drop-shadow(0 2px 6px rgba(255, 242, 0, 0.15));
+  will-change: transform;
 }
 
 .navbar-logo:hover {
@@ -115,6 +109,17 @@
 }
 
 /* ==========================================
+   NAVBAR RIGHT WRAPPER
+   ========================================== */
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 0;
+}
+
+/* ==========================================
    NAVIGATION LINKS
    ========================================== */
 
@@ -122,6 +127,9 @@
   display: flex;
   align-items: center;
   gap: 0;
+  margin: 0 !important;
+  padding: 0;
+  list-style: none;
 }
 
 .nav-item {
@@ -144,6 +152,7 @@
   border-radius: 0;
   transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   overflow: hidden;
+  will-change: color;
 }
 
 .nav-link::before {
@@ -167,7 +176,6 @@
   transform: scaleX(1);
 }
 
-/* Active Link State */
 .nav-link.active-link {
   color: #a8a8a8 !important;
   font-weight: 500;
@@ -176,6 +184,45 @@
 .nav-link.active-link::before {
   transform: scaleX(1);
   background: var(--primary-yellow);
+}
+
+/* ==========================================
+   EV PORTAL / DASHBOARD BUTTON
+   ========================================== */
+
+.nav-dashboard-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.5rem 1.4rem;
+  margin-left: 2.5rem;
+  background: var(--accent-gradient);
+  color: #000 !important;
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 8px;
+  text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 16px rgba(255, 242, 0, 0.25);
+  white-space: nowrap;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 242, 0, 0.4);
+}
+
+.nav-dashboard-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(255, 242, 0, 0.5);
+  color: #000 !important;
+  text-decoration: none !important;
+}
+
+.nav-dashboard-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(255, 242, 0, 0.3);
 }
 
 /* ==========================================
@@ -205,19 +252,6 @@
 .navbar-toggler:focus {
   outline: none;
   box-shadow: none;
-}
-
-/* Custom Toggle Icon */
-.custom-toggler {
-  border: none;
-  background: transparent;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  z-index: 1001;
 }
 
 .navbar-toggler-icon {
@@ -277,10 +311,36 @@
     right: 0;
   }
 
+  /* Overlay behind mobile menu */
+  .navbar-collapse::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+  }
+
+  .navbar-collapse.show::before {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Stack navbar-right vertically on mobile */
+  .navbar-right {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    margin-left: 0;
+  }
+
   .navbar-nav {
     flex-direction: column;
     gap: 0.3rem;
     align-items: stretch;
+    width: 100%;
   }
 
   .nav-item {
@@ -314,24 +374,7 @@
     transform: translateY(-50%) scaleY(1);
   }
 
-  /* Mobile Menu Overlay */
-  .navbar-collapse::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-    z-index: -1;
-  }
-
-  .navbar-collapse.show::before {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* Stagger animation for menu items */
+  /* Stagger animation for nav items */
   .navbar-collapse.show .nav-item {
     animation: slideInRight 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards;
   }
@@ -343,18 +386,18 @@
   .navbar-collapse.show .nav-item:nth-child(5) { animation-delay: 0.25s; }
   .navbar-collapse.show .nav-item:nth-child(6) { animation-delay: 0.3s; }
 
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
+  /* EV Portal Button - Mobile */
+  .nav-dashboard-btn {
+    margin-left: 0;
+    margin-top: 1.2rem;
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    font-size: 0.95rem;
+    border-radius: 10px;
+    animation: slideInRight 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: 0.35s;
   }
 
-  /* Mobile Container Adjustments */
   .navbar .container {
     padding: 0.5rem 1.5rem;
   }
@@ -366,6 +409,17 @@
   .navbar-logo {
     width: 100px;
   }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 }
 
 /* ==========================================
@@ -373,17 +427,18 @@
    ========================================== */
 
 @media (max-width: 1200px) and (min-width: 992px) {
-  .navbar-nav {
-    gap: 0;
-  }
-
   .nav-item {
     margin-right: 2rem !important;
   }
 
   .nav-link {
-    padding: 0.3rem 0 !important;
     font-size: 0.95rem;
+  }
+
+  .nav-dashboard-btn {
+    margin-left: 1.5rem;
+    padding: 0.45rem 1rem;
+    font-size: 0.85rem;
   }
 }
 
@@ -401,31 +456,9 @@
   }
 }
 
-/* Focus Styles for Keyboard Navigation */
-.nav-link:focus {
-  outline: none;
-}
-
-.navbar-toggler:focus {
-  outline: none;
-}
-
+.nav-link:focus,
+.navbar-toggler:focus,
 .nav-link:focus-visible {
   outline: none;
-}
-
-/* ==========================================
-   PERFORMANCE OPTIMIZATIONS
-   ========================================== */
-
-.navbar {
-  will-change: background, backdrop-filter;
-}
-
-.nav-link {
-  will-change: color;
-}
-
-.navbar-logo {
-  will-change: transform;
+  box-shadow: none;
 }
