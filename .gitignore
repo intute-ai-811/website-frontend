@@ -19,7 +19,7 @@ dist-ssr/
 .vite/
 
 # Environment variables
-.env
+
 .env.*.local
 
 # OS-specific files
