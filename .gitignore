@@ -57,3 +57,4 @@ coverage/
 # Mac/Linux file metadata
 *.swp
 *.swo
+.gstack/

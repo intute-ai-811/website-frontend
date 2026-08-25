@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./VeloConnectLite.css";
+import useFocusTrap from "../../hooks/useFocusTrap";
 
 // Assets
 import appImg from "../../assets/images/veloconnect-app.jpg";
@@ -83,7 +84,7 @@ const appFeatures = [
 export default function VeloConnectLite() {
   const [showVideo, setShowVideo] = useState(false);
   const [isLandscape, setIsLandscape] = useState(false);
-  const closeBtnRef = useRef(null);
+  const modalRef = useRef(null);
 
   const openVideo = () => setShowVideo(true);
   const closeVideo = () => setShowVideo(false);
@@ -94,6 +95,8 @@ export default function VeloConnectLite() {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [showVideo]);
+
+  useFocusTrap(modalRef, showVideo);
 
   return (
     <main className="vcl-page">
@@ -212,11 +215,12 @@ export default function VeloConnectLite() {
             role="dialog"
             aria-modal="true"
             aria-label="VeloConnect Lite demo video"
+            ref={modalRef}
+            tabIndex={-1}
           >
             <button
               className="vcl-close"
               onClick={closeVideo}
-              ref={closeBtnRef}
               aria-label="Close video"
             >
               ✕

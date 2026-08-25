@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import "./demoPage.css";
+import useFocusTrap from "../../hooks/useFocusTrap";
 
 // Assets
 import img from "../../assets/images/driver-distraction.jpg";
@@ -63,8 +64,18 @@ const FeatureCards = () => {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [expanded, setExpanded] = useState(null);
   const [isLandscape, setIsLandscape] = useState(false);
+  const modalRef = useRef(null);
 
   const closeModal = () => setSelectedVideo(null);
+
+  useEffect(() => {
+    if (!selectedVideo) return;
+    const onKey = (e) => e.key === "Escape" && closeModal();
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [selectedVideo]);
+
+  useFocusTrap(modalRef, !!selectedVideo);
 
   return (
     <>
@@ -225,6 +236,11 @@ const FeatureCards = () => {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Product demo video"
+            ref={modalRef}
+            tabIndex={-1}
           >
             <button className="demo-close-button" onClick={closeModal}>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">

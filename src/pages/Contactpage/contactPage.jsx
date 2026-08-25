@@ -1,4 +1,4 @@
-import React, { useState, Suspense, lazy } from "react";
+import React, { useState, useRef, Suspense, lazy } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./contactPage.css";
@@ -14,6 +14,7 @@ const ContactUs = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [statusMessage, setStatusMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isSubmittingRef = useRef(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,11 +22,26 @@ const ContactUs = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmittingRef.current) return;
+
+    const trimmedData = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      message: formData.message.trim(),
+    };
+
+    if (!trimmedData.name || !trimmedData.email || !trimmedData.message) {
+      setStatusMessage("Please fill in all fields.");
+      setTimeout(() => setStatusMessage(""), 5000);
+      return;
+    }
+
+    isSubmittingRef.current = true;
     setIsSubmitting(true);
     setStatusMessage("Sending...");
 
     try {
-      await axios.post("/api/contact", formData, {
+      await axios.post("/api/contact", trimmedData, {
         headers: { "Content-Type": "application/json" },
       });
       setStatusMessage("Message sent successfully!");
@@ -36,6 +52,7 @@ const ContactUs = () => {
       console.error("Form submission error:", error);
       setTimeout(() => setStatusMessage(""), 5000);
     } finally {
+      isSubmittingRef.current = false;
       setIsSubmitting(false);
     }
   };

@@ -8,7 +8,6 @@ import "./teampage.css";
 import mayankImage from "../../assets/images/Mayank.jpeg";
 import prathamImage from "../../assets/images/Pratham.jpeg";
 import rahulImage from "../../assets/images/Rahul.jpeg";
-import rishikaImage from "../../assets/images/Rishika.jpg";
 import saatwikImage from "../../assets/images/Saatwik.jpg";
 import rhythmImage from "../../assets/images/Rhythm.jpeg";
 import akshayImage from "../../assets/images/Akshay.jpeg";
@@ -40,20 +39,14 @@ const teamMembers = [
   {
     name: "Pratham",
     role: "Application Developer",
-    description: "React-Native specialist and Real-time Systems Enthusiast",
+    description: "Real-Time Systems Engineer",
     image: prathamImage,
+    imagePosition: "center 45%",
     linkedin: "https://www.linkedin.com/in/pratham-b3371b295/",
   },
   {
-    name: "Rishika",
-    role: "Front-end Developer",
-    description: "Front-end Developer, UI/UX Designer",
-    image: rishikaImage,
-    linkedin: "https://www.linkedin.com/in/rishika-958942223/",
-  },
-  {
     name: "Rahul",
-    role: "Backend Developer",
+    role: "Full Stack Developer",
     description: "Database Architect and API Specialist",
     image: rahulImage,
     linkedin: "https://www.linkedin.com/in/ra-hash1/",
@@ -93,6 +86,7 @@ const TeamCard = ({ member, index }) => (
             className="team-image-rect"
             loading="lazy"
             decoding="async"
+            style={member.imagePosition ? { objectPosition: member.imagePosition } : undefined}
           />
         ) : (
           <div className="team-image-placeholder" aria-hidden />
