@@ -34,6 +34,7 @@ const teamMembers = [
     role: "Embedded Engineer",
     description: "Embedded UI Developer",
     image: mayankImage,
+    imagePosition: "center 35%",
     linkedin: "https://www.linkedin.com/in/mayank-sapra/",
   },
   {
